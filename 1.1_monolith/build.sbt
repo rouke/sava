@@ -25,4 +25,6 @@ libraryDependencies ++= Seq(
   "ch.qos.logback" % "logback-classic" % "1.1.2"
 )
 
+assemblyJarName in assembly := "1.1_monolith.jar"
+
 spray.revolver.RevolverPlugin.Revolver.settings.settings

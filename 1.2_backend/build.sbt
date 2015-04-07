@@ -27,4 +27,6 @@ libraryDependencies ++= Seq(
   "net.databinder.dispatch" %% "dispatch-json4s-native" % "0.11.2"
 )
 
+assemblyJarName in assembly := "1.2_backend.jar"
+
 spray.revolver.RevolverPlugin.Revolver.settings.settings

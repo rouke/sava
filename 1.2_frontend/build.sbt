@@ -1,8 +1,8 @@
 organization := "io.vamp"
 
-name := """monolith"""
+name := """frontend"""
 
-version := "1.1"
+version := "1.2"
 
 scalaVersion := "2.11.6"
 
@@ -26,5 +26,7 @@ libraryDependencies ++= Seq(
   "net.databinder.dispatch" %% "dispatch-core" % "0.11.2",
   "net.databinder.dispatch" %% "dispatch-json4s-native" % "0.11.2"
 )
+
+assemblyJarName in assembly := "1.2_frontend.jar"
 
 spray.revolver.RevolverPlugin.Revolver.settings.settings
