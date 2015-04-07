@@ -19,15 +19,19 @@ clusters:
 
           - name: backend1.host
             direction: IN
+            alias: BACKEND_1_HOST
 
           - name: backend1.ports.port
             direction: IN
+            alias: BACKEND_1_PORT
 
           - name: backend2.host
             direction: IN
+            alias: BACKEND_2_HOST
 
           - name: backend2.ports.port
             direction: IN
+            alias: BACKEND_2_PORT
 
         dependency:
           backend1: sava_backend1_1_2
