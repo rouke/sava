@@ -20,5 +20,4 @@ COPY _SERVICE_.jar /
 
 EXPOSE 80
 
-CMD ["java", "-jar", "/_SERVICE_.jar"]
-
+CMD ["java", "-jar", "/_SERVICE_.jar", "_CMD_"]
