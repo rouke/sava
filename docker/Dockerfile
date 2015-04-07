@@ -18,7 +18,7 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 COPY _SERVICE_.jar /
 
-EXPOSE 8080
+EXPOSE 80
 
 CMD ["java", "-jar", "/_SERVICE_.jar"]
 

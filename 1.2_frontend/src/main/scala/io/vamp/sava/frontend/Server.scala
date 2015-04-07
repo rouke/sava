@@ -21,7 +21,7 @@ object Server extends App {
   implicit val timeout = Timeout(10 seconds)
   implicit val system = ActorSystem("actor-system")
   val serverActor = system.actorOf(Props[ServerActor], "server-actor")
-  IO(Http)(system) ? Http.Bind(serverActor, "0.0.0.0", 8080)
+  IO(Http)(system) ? Http.Bind(serverActor, "0.0.0.0", 80)
 }
 
 class ServerActor extends HttpServiceActor with ActorLogging {

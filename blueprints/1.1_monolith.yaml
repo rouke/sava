@@ -1,0 +1,16 @@
+name: sava_monolith_1_1
+
+endpoints:
+  sava.ports.port: 80
+
+clusters:
+
+  sava:
+    services:
+      breed:
+        name: sava_monolith_1_1
+        deployable: magneticio/sava-1.1_monolith:latest
+        ports:
+          name: port
+          value: 80/http
+          direction: OUT

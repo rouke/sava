@@ -1,0 +1,38 @@
+name: sava_fe_be_1_3
+
+endpoints:
+  sava.ports.port: 80
+
+clusters:
+
+  sava:
+    services:
+      breed:
+        name: sava_frontend_1_3
+        deployable: magneticio/sava-1.3_frontend:latest
+        ports:
+          name: port
+          value: 80/http
+          direction: OUT
+
+        environment_variables:
+        
+          - name: backend.host
+            direction: IN
+
+          - name: backend.ports.port
+            direction: IN
+
+        dependency:
+          backend: sava_backend1_1_3
+
+  backend:
+    services:
+      breed:
+        name: sava_backend_1_3
+        # Reusing the same 1.2 image, even though name implies a newer release.
+        deployable: magneticio/sava-1.2_backend:latest
+        ports:
+          name: port
+          value: 80/http
+          direction: OUT

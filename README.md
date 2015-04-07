@@ -27,14 +27,37 @@
 
 * Similar to **Frontend 1.2** but with different theme and single backend.
 
+## Building services
+
+Running **docker/build.sh VERSION** will:
+
+* build assembly (fat) jars
+* create and push docker images (access right to magneticio Docker repository required) with specified **VERSION**
+
+
 ## Showcases
 
-**A/B testing different themes:**
+**A/B testing different themes:** 
 
-* **Monolith 1.0** + **Monolith 1.1** with router filters (e.g. by browser type).
+* **Monolith 1.0** + **Monolith 1.1** with router filters and weights (e.g. by browser type).
+
+Steps: 
+
+* deploy 1.0_monolith.yaml
+* add to the deployment 1.1_monolith.yaml
+* adjust weights and filters
+* adjust weight to 100% for 1.1 and remove the 1.0 from the deployment (using 1.0_monolith.yaml)
 
 **Topology change:**
 
 * Starting with micro-services and over-engineering it (3 services): from **Monolith 1.x** to 3 service deployment **Frontend 1.2** & 2 **Backend 1.2**.
 * Moving back to more reasonable micro-services setup (2 services): from **Frontend 1.2** and 2 backends to deployment of **Frontend 1.3** and single **Backend 1.2**.
+
+Steps: 
+
+* deploy 1.2_fe_be.yaml
+* add to the deployment 1.3_fe_be.yaml
+* adjust weights and filters
+* adjust weight to 100% for 1.3 and remove the 1.2 from the deployment (using 1.2_fe_be.yaml)
+
 
