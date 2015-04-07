@@ -55,13 +55,13 @@ class ServerActor extends HttpServiceActor with ActorLogging {
     respondWithMediaType(`application/json`) {
       path("message1") {
         get {
-          onComplete(backend(config.getString("backend1"))) { message =>
+          onComplete(backend(config.getString("backend1.host"), config.getInt("backend1.port"))) { message =>
             complete(OK, write("text" -> message.getOrElse(lorem))(DefaultFormats))
           }
         }
       } ~ path("message2") {
         get {
-          onComplete(backend(config.getString("backend2"))) { message =>
+          onComplete(backend(config.getString("backend2.host"), config.getInt("backend2.port"))) { message =>
             complete(OK, write("text" -> message.getOrElse(lorem))(DefaultFormats))
           }
         }
@@ -69,9 +69,9 @@ class ServerActor extends HttpServiceActor with ActorLogging {
     }
   }
 
-  def backend(url: String): Future[Any] = {
+  def backend(host: String, port: Integer): Future[Any] = {
     implicit val formats = DefaultFormats
-    dispatch.Http(dispatch.url(url) OK dispatch.as.json4s.Json) map { json =>
+    dispatch.Http(dispatch.url(s"http://$host:$port/api/message") OK dispatch.as.json4s.Json) map { json =>
       json.extract[Map[String, Any]].getOrElse("text", lorem)
     }
   }
