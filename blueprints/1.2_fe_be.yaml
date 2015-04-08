@@ -9,7 +9,7 @@ clusters:
     services:
       breed:
         name: sava_frontend_1_2
-        deployable: magneticio/sava-1.2_frontend:latest
+        deployable: magneticio/sava-1.2_frontend:0.7.0
         ports:
           name: port
           value: 80/http
@@ -33,26 +33,26 @@ clusters:
             direction: IN
             alias: BACKEND_2_PORT
 
-        dependency:
+        dependencies:
           backend1: sava_backend1_1_2
-          backend1: sava_backend2_1_2
+          backend2: sava_backend2_1_2
 
   backend1:
     services:
       breed:
         name: sava_backend1_1_2
-        deployable: magneticio/sava-1.2_backend:latest
+        deployable: magneticio/sava-1.2_backend:0.7.0
         ports:
           name: port
           value: 80/http
           direction: OUT
 
-    backend2:
-      services:
-        breed:
-          name: sava_backend2_1_2
-          deployable: magneticio/sava-1.2_backend:latest
-          ports:
-            name: port
-            value: 80/http
-            direction: OUT
+  backend2:
+    services:
+      breed:
+        name: sava_backend2_1_2
+        deployable: magneticio/sava-1.2_backend:0.7.0
+        ports:
+          name: port
+          value: 80/http
+          direction: OUT

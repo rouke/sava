@@ -16,7 +16,11 @@ RUN \
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
-COPY _SERVICE_.jar /
-
 EXPOSE 80
+
+COPY _SERVICE_.jar /
+COPY run.sh /
+RUN chmod u+x /run.sh
+
+CMD /run.sh
 

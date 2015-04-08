@@ -9,7 +9,7 @@ clusters:
     services:
       breed:
         name: sava_monolith_1_0
-        deployable: magneticio/sava-1.0_monolith:latest
+        deployable: magneticio/sava-1.0_monolith:0.7.0
         ports:
           name: port
           value: 80/http

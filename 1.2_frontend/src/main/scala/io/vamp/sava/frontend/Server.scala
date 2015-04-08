@@ -55,13 +55,13 @@ class ServerActor extends HttpServiceActor with ActorLogging {
     respondWithMediaType(`application/json`) {
       path("message1") {
         get {
-          onComplete(backend(config.getString("backend1.host"), config.getInt("backend1.port"))) { message =>
+          onComplete(backend(config.getString("backend1.host"), toInt(config.getAnyRef("backend1.port")))) { message =>
             complete(OK, write("text" -> message.getOrElse(lorem))(DefaultFormats))
           }
         }
       } ~ path("message2") {
         get {
-          onComplete(backend(config.getString("backend2.host"), config.getInt("backend2.port"))) { message =>
+          onComplete(backend(config.getString("backend2.host"), toInt(config.getAnyRef("backend2.port")))) { message =>
             complete(OK, write("text" -> message.getOrElse(lorem))(DefaultFormats))
           }
         }
@@ -74,5 +74,10 @@ class ServerActor extends HttpServiceActor with ActorLogging {
     dispatch.Http(dispatch.url(s"http://$host:$port/api/message") OK dispatch.as.json4s.Json) map { json =>
       json.extract[Map[String, Any]].getOrElse("text", lorem)
     }
+  }
+
+  private def toInt(any: Any): Integer = any match {
+    case v: Integer => v
+    case v => v.toString.toInt
   }
 }

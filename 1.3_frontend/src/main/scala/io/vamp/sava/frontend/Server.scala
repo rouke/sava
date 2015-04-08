@@ -69,7 +69,13 @@ class ServerActor extends HttpServiceActor with ActorLogging {
     }
   }
 
-  def backend(host: String = config.getString("backend.host"), port: Integer = config.getInt("backend.port")): Future[Any] = {
+  def backend(): Future[Any] = {
+    val host = config.getString("backend.host")
+    val port = config.getAnyRef("backend.port") match {
+      case v: Integer => v
+      case v => v.toString.toInt
+    }
+
     implicit val formats = DefaultFormats
     dispatch.Http(dispatch.url(s"http://$host:$port/api/message") OK dispatch.as.json4s.Json) map { json =>
       json.extract[Map[String, Any]].getOrElse("text", lorem)
