@@ -1,7 +1,7 @@
 name: sava_fe_be_1_3
 
 endpoints:
-  sava.ports.port: 80
+  sava.ports.port: 9050
 
 clusters:
 

@@ -1,7 +1,7 @@
 name: sava_monolith_1_1
 
 endpoints:
-  sava.ports.port: 80
+  sava.ports.port: 9050
 
 clusters:
 
