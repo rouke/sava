@@ -1,7 +1,7 @@
 name: sava:1.3
 
 endpoints:
-  sava.port: 80
+  sava.port: 9050
 
 clusters:
 
