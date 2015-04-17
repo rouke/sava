@@ -1,0 +1,14 @@
+name: sava:1.0
+
+endpoints:
+  sava.port: 80
+
+clusters:
+
+  sava:
+    services:
+      breed:
+        name: sava:1.0.0
+        deployable: magneticio/sava:1.0.0
+        ports:
+          port: 80/http

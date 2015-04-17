@@ -12,42 +12,75 @@ VERSION=$1
 
 echo "cleaning..."
 
-rm -Rf $DIR/target 2> /dev/null
-mkdir $DIR/target
+rm -Rf ${DIR}/target 2> /dev/null
+mkdir ${DIR}/target
 
-for SERVICE in 1.0_monolith 1.1_monolith 1.2_frontend 1.2_backend 1.3_frontend
+echo "building jars..."
+
+for SERVICE in sava_1.0 sava_1.1 sava_frontend_1.2 sava_backend_1.2 sava_frontend_1.3
 do
-  echo "building jar:" $SERVICE
-  mkdir $DIR/target/$SERVICE
-  cd $DIR/../$SERVICE && sbt clean assembly
-  cp $DIR/../$SERVICE/target/scala-2.11/$SERVICE.jar $DIR/target/$SERVICE/.
+  echo "building jar: ${SERVICE}.jar"
+  mkdir ${DIR}/target/${SERVICE}
+  cd ${DIR}/../${SERVICE} && sbt clean assembly
+  cp ${DIR}/../${SERVICE}/target/scala-2.11/${SERVICE}.jar ${DIR}/target/${SERVICE}/.
 done
 
-for SERVICE in 1.0_monolith 1.1_monolith 1.2_backend
-do
-  echo "building docker image:" $SERVICE
-  sed -e 's/_SERVICE_/'${SERVICE}'/g' $DIR/Dockerfile > $DIR/target/$SERVICE/Dockerfile
-  echo '#!/usr/bin/env bash' > $DIR/target/$SERVICE/run.sh
-  echo '' >> $DIR/target/$SERVICE/run.sh
-  echo 'java -jar /'$SERVICE'.jar' >> $DIR/target/$SERVICE/run.sh
-  docker build -t magneticio/sava-$SERVICE:$VERSION $DIR/target/$SERVICE
-  docker push magneticio/sava-$SERVICE:$VERSION
-done
+function createDockerFileFor {
+  sed -e 's/_SERVICE_/'${1}'/g' ${DIR}/Dockerfile > ${DIR}/target/$1/Dockerfile
+}
 
-SERVICE="1.2_frontend"
-echo "building docker image:" $SERVICE
-sed -e 's/_SERVICE_/'${SERVICE}'/g' -e "s/_CMD_/${CMD}/g" $DIR/Dockerfile > $DIR/target/$SERVICE/Dockerfile
-echo '#!/usr/bin/env bash' > $DIR/target/$SERVICE/run.sh
-echo '' >> $DIR/target/$SERVICE/run.sh
-echo 'java -Dfrontend.backend1.host=$BACKEND_1_HOST -Dfrontend.backend1.port=$BACKEND_1_PORT -Dfrontend.backend2.host=$BACKEND_2_HOST -Dfrontend.backend2.port=$BACKEND_2_PORT -jar /'$SERVICE'.jar' >> $DIR/target/$SERVICE/run.sh
-docker build -t magneticio/sava-$SERVICE:$VERSION $DIR/target/$SERVICE
-docker push magneticio/sava-$SERVICE:$VERSION
+function createRunFileFor {
+  echo '#!/usr/bin/env bash' > ${DIR}/target/${1}/run.sh
+  printf "\n" >> ${DIR}/target/${1}/run.sh
+  echo 'java '${2}' -jar /'${1}'.jar' >> ${DIR}/target/${1}/run.sh
+}
 
-SERVICE="1.3_frontend"
-echo "building docker image:" $SERVICE
-sed -e 's/_SERVICE_/'${SERVICE}'/g' $DIR/Dockerfile > $DIR/target/$SERVICE/Dockerfile
-echo '#!/usr/bin/env bash' > $DIR/target/$SERVICE/run.sh
-echo '' >> $DIR/target/$SERVICE/run.sh
-echo 'java -Dfrontend.backend.host=$BACKEND_HOST -Dfrontend.backend.port=$BACKEND_PORT -jar /'$SERVICE'.jar' >> $DIR/target/$SERVICE/run.sh
-docker build -t magneticio/sava-$SERVICE:$VERSION $DIR/target/$SERVICE
-docker push magneticio/sava-$SERVICE:$VERSION
+function buildDockerImageFor {
+  docker build -t magneticio/${1} ${DIR}/target/${2}
+}
+
+echo "building docker images..."
+
+echo "building docker image: sava_1.0".${VERSION}
+createDockerFileFor sava_1.0
+createRunFileFor sava_1.0
+buildDockerImageFor sava:1.0.${VERSION} sava_1.0
+
+echo "building docker image: sava_1.1".${VERSION}
+createDockerFileFor sava_1.1
+createRunFileFor sava_1.1
+buildDockerImageFor sava:1.1.${VERSION} sava_1.1
+
+echo "building docker image: sava_frontend_1.2".${VERSION}
+createDockerFileFor sava_frontend_1.2
+createRunFileFor sava_frontend_1.2 '-Dfrontend.backend1=$'BACKEND_1' -Dfrontend.backend2=$'BACKEND_2
+buildDockerImageFor sava-frontend:1.2.${VERSION} sava_frontend_1.2
+
+echo "building docker image: sava-backend1:1.2".${VERSION}
+createDockerFileFor sava_backend_1.2
+createRunFileFor sava_backend_1.2
+buildDockerImageFor sava-backend1:1.2.${VERSION} sava_backend_1.2
+
+echo "building docker image: sava-backend2:1.2".${VERSION}
+createDockerFileFor sava_backend_1.2
+createRunFileFor sava_backend_1.2
+buildDockerImageFor sava-backend2:1.2.${VERSION} sava_backend_1.2
+
+echo "building docker image: sava_frontend_1.3".${VERSION}
+createDockerFileFor sava_frontend_1.3
+createRunFileFor sava_frontend_1.3 '-Dfrontend.backend=$'BACKEND
+buildDockerImageFor sava-frontend:1.3.${VERSION} sava_frontend_1.3
+
+echo "building docker image: sava-backend:1.3".${VERSION}
+createDockerFileFor sava_backend_1.2
+createRunFileFor sava_backend_1.2
+buildDockerImageFor sava-backend:1.3.${VERSION} sava_backend_1.2
+
+echo "pushing docker images..."
+docker push magneticio/sava:1.0.${VERSION}
+docker push magneticio/sava:1.1.${VERSION}
+docker push magneticio/sava-frontend:1.2.${VERSION}
+docker push magneticio/sava-backend1:1.2.${VERSION}
+docker push magneticio/sava-backend2:1.2.${VERSION}
+docker push magneticio/sava-frontend:1.3.${VERSION}
+docker push magneticio/sava-backend:1.3.${VERSION}
