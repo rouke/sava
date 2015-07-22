@@ -11,4 +11,8 @@ clusters:
         name: sava:1.1.0
         deployable: magneticio/sava:1.1.0
         ports:
-          port: 80/http
+          port: 8080/http
+      scale:
+        cpu: 0.5       
+        memory: 512  
+        instances: 1          
