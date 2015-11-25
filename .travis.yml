@@ -1,9 +1,9 @@
 language: go
 sudo: false
 install:
-  - go get github.com/gin-gonic/gin
   - export GOROOT=`go env GOROOT`
   - cd $GOROOT/src/;./make.bash
+  - go get github.com/gin-gonic/gin
 before_script:
   - cd $TRAVIS_BUILD_DIR
 script: docker/build.sh $TRAVIS_BUILD_NUMBER
