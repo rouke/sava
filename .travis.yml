@@ -1,2 +1,2 @@
-language: java
-install: apt-get install -y golang
+language: go
+# install:
