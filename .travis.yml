@@ -1,4 +1,5 @@
 language: go
+sudo: false
 install:
   - export `go env`
   - $GOROOT/src/make.bash
