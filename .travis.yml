@@ -2,7 +2,7 @@ language: go
 sudo: false
 install:
   - export GOROOT=`go env GOROOT`
-  - export GOHOSTARCH=386
+  - export GOHOSTARCH="386"
   - cd $GOROOT/src/;./make.bash
   - go get github.com/gin-gonic/gin
 before_script:
