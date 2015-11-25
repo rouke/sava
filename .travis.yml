@@ -1,3 +1,4 @@
 language: go
+install: /usr/share/go/src/make.bash
 script: docker/build.sh ${TRAVIS_BUILD_NUMBER}
 # install:
