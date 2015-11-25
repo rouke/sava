@@ -1,2 +1,3 @@
 language: go
+script: docker/build.sh ${TRAVIS_BUILD_NUMBER}
 # install:
