@@ -2,7 +2,6 @@ language: go
 sudo: false
 install:
   - export GOROOT=`go env GOROOT`
-  - cd $GOROOT/src/
-  - make.bash
+  - cd $GOROOT/src/;./make.bash
 script: docker/build.sh ${TRAVIS_BUILD_NUMBER}
 # install:
