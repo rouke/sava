@@ -23,7 +23,8 @@ for SERVICE in sava_1.0 sava_1.1 sava_frontend_1.2 sava_backend_1.2 sava_fronten
     echo "building: ${SERVICE}"
     cd ${DIR}/../${SERVICE}  
     # build the app for linux/i386 an build the docker container
-    GOOS=linux GOARCH=386 go build
+    # GOOS=linux GOARCH=386 
+    go build
   done
 
 
