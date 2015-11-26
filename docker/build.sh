@@ -33,7 +33,7 @@ function createDockerFileFor {
 }
 
 function buildDockerImageFor {
-  docker build -t magneticio/${1} ${DIR}/target/${2}
+  docker build -t savaltd/${1} ${DIR}/target/${2}
 }
 
 echo "prepping Docker files and dependencies"
