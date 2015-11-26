@@ -78,4 +78,4 @@ docker push savaltd/sava-frontend:1.2.${VERSION}
 docker push savaltd/sava-backend1:1.2.${VERSION}
 docker push savaltd/sava-backend2:1.2.${VERSION}
 docker push savaltd/sava-frontend:1.3.${VERSION}
-docker push rdejong/savaltd/sava-backend:1.3.${VERSION}
+docker push savaltd/sava-backend:1.3.${VERSION}
