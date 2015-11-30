@@ -13,4 +13,4 @@ script: docker/build.sh $TRAVIS_BUILD_NUMBER
 notifications:
   webhooks:
 #    - https://$JIRA_USER:$JIRA_PASS@89.31.102.182/rest/api/latest/$JIRA_ISSUE
-  - https://www.cloudpipes.com/hooks/webhooks/1ky3gmkan7k
+  - https://www.cloudpipes.com/hooks/webhooks/1risbjjh4hs
