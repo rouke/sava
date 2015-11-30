@@ -1,5 +1,9 @@
 language: go
-sudo: required
+sudo: false
+addons:
+  apt:
+    packages:
+    -  docker
 services:
   - docker
 install:
