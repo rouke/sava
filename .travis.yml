@@ -15,4 +15,4 @@ script: docker/build.sh $TRAVIS_BUILD_NUMBER
 #    - https://$JIRA_USER:$JIRA_PASS@89.31.102.182/rest/api/latest/$JIRA_ISSUE
 #  - https://www.cloudpipes.com/hooks/webhooks/1lkxl31gp34
 after_script:
-  -  curl -D- -u $JIRA_USER:$JIRA_PASS -X POST -H "Content-Type: application/json" -d "{\"body\":\"Travis-ci build finished. Available at https://travis-ci.org/rouke/sava/builds/$TRAVIS_JOB_ID\"}" https://savaltd.atlassian.net/rest/api/2/issue/$JIRA_ISSUE/comment
+  -  curl -D- -u $JIRA_USER:$JIRA_PASS -X POST -H 'Content-Type: application/json' -d "{\"body\":\"Travis-ci build finished. Available at https://travis-ci.org/rouke/sava/builds/$TRAVIS_JOB_ID\"}" https://savaltd.atlassian.net/rest/api/2/issue/$JIRA_ISSUE/comment
