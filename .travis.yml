@@ -1,9 +1,5 @@
 language: go
-sudo: false
-addons:
-  apt:
-    packages:
-    -  docker
+sudo: required
 services:
   - docker
 install:
@@ -16,4 +12,4 @@ before_script:
 script: docker/build.sh $TRAVIS_BUILD_NUMBER
 notifications:
   webhooks:
-    - https://$JIRA_USER:$JIRA_PASS@savaltd.atlassian.net/rest/api/latest/$JIRA_ISSUE
+    - https://$JIRA_USER:$JIRA_PASS@89.31.102.182/rest/api/latest/$JIRA_ISSUE
