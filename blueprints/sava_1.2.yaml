@@ -9,7 +9,7 @@ clusters:
     services:
       breed:
         name: sava-frontend:1.2.0
-        deployable: magneticio/sava-frontend:1.2.0
+        deployable: savaltd/sava-frontend:1.2.0
         ports:
           port: 8080/http
 
@@ -29,7 +29,7 @@ clusters:
     services:
       breed:
         name: sava-backend1:1.2.0
-        deployable: magneticio/sava-backend1:1.2.0
+        deployable: savaltd/sava-backend1:1.2.0
         ports:
           port: 8080/http
       scale:
@@ -41,7 +41,7 @@ clusters:
     services:
       breed:
         name: sava-backend2:1.2.0
-        deployable: magneticio/sava-backend2:1.2.0
+        deployable: savaltd/sava-backend2:1.2.0
         ports:
           port: 8080/http
       scale:

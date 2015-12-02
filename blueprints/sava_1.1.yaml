@@ -9,7 +9,7 @@ clusters:
     services:
       breed:
         name: sava:1.1.0
-        deployable: magneticio/sava:1.1.0
+        deployable: savaltd/sava:1.1.0
         ports:
           port: 8080/http
       scale:
