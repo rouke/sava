@@ -14,12 +14,3 @@ notifications:
   webhooks:
 #    - https://$JIRA_USER:$JIRA_PASS@89.31.102.182/rest/api/latest/$JIRA_ISSUE
   - https://zapier.com/hooks/catch/3qvzb9/
-after_script:
-  -  if [ "$JIRA_ISSUE" ];
-      then curl -s -D- 
-                -u $JIRA_USER:$JIRA_PASS 
-                -X PUT 
-                -H 'Content-Type:application/json' 
-                -d "{\"update\":{\"fields\":{\"labels\":[\"1.0.$TRAVIS_BUILD_NUMBER\"]}}}" 
-                https://savaltd.atlassian.net/rest/api/2/issue/$JIRA_ISSUE/
-      ;fi
