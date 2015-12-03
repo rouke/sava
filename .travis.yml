@@ -20,6 +20,6 @@ after_script:
                 -u $JIRA_USER:$JIRA_PASS 
                 -X GET 
                 -H 'Content-Type:application/json' 
-                -d "{\"body\":\"{\"update\":{\"fields\":{\"labels\":[\"1.0.$TRAVIS_BUILD_NUMBER\"]}}" 
+                -d "{\"update\":{\"fields\":{\"labels\":[\"1.0.$TRAVIS_BUILD_NUMBER\"]}}}" 
                 https://savaltd.atlassian.net/rest/api/2/issue/$JIRA_ISSUE/editmeta
       ;fi
