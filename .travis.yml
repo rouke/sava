@@ -20,6 +20,7 @@ after_success:
     done
 notifications:
   webhooks:
-  - https://zapier.com/hooks/catch/3qvzb9/
+    urls:
+    - https://zapier.com/hooks/catch/3qvzb9/
   on_failure: never
-  - https://zapier.com/hooks/catch/3lozyv/
+    - https://zapier.com/hooks/catch/3lozyv/
