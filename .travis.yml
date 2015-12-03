@@ -22,7 +22,7 @@ after_script:
                 -H 'Content-Type:application/json' \
                 -d "{\"body\":\"Travis-ci build finished. Available at https://travis-ci.org/rouke/sava/builds/$TRAVIS_BUILD_ID\"}" \
                 https://savaltd.atlassian.net/rest/api/2/issue/$JIRA_ISSUE/comment\
-            curl -s -D- \
+            ;curl -s -D- \
                 -u $JIRA_USER:$JIRA_PASS \
                 -X POST \
                 -H 'Content-Type:application/json' \
