@@ -10,15 +10,16 @@ before_script:
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USER" -p="$DOCKER_PASS"
   - cd $TRAVIS_BUILD_DIR
 script: docker/build.sh $TRAVIS_BUILD_NUMBER
-notifications:
-  webhooks:
-#    - https://$JIRA_USER:$JIRA_PASS@89.31.102.182/rest/api/latest/$JIRA_ISSUE
-  - https://zapier.com/hooks/catch/3qvzb9/
-  - https://zapier.com/hooks/catch/3lozyv/
 after_success:
+  - cd blueprints
   - export maj_min_versions=`ls|sed -n 's/.*_\([0-9]*\.[0-9]*\).*/\1/p'`
   - for maj_min_version in $maj_min_versions;
     do 
       sed -i "s/${maj_min_version}.*/${maj_min_version}\.$TRAVIS_BUILD_NUMBER/g" *${maj_min_version}.yaml;
       curl -D- -u VAMP_USER:VAMP_PASS --data-binary @*${maj_min_version}.yaml -X POST -H "Content-Type:Application/x-yaml" http://www.sava-vamp.tk/api/v1/blueprints;
     done
+notifications:
+  webhooks:
+#    - https://$JIRA_USER:$JIRA_PASS@89.31.102.182/rest/api/latest/$JIRA_ISSUE
+  - https://zapier.com/hooks/catch/3qvzb9/
+  - https://zapier.com/hooks/catch/3lozyv/
