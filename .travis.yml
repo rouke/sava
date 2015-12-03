@@ -13,7 +13,7 @@ script: docker/build.sh $TRAVIS_BUILD_NUMBER
 notifications:
   webhooks:
 #    - https://$JIRA_USER:$JIRA_PASS@89.31.102.182/rest/api/latest/$JIRA_ISSUE
-  - https://zapier.com/hooks/catch/3qvzb9/?$TRAVIS_BUILD_NUMBER
+  - https://zapier.com/hooks/catch/3qvzb9/
 after_script:
   -  if [ "$JIRA_ISSUE" ];
       then curl -s -D- 
