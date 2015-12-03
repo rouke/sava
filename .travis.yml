@@ -22,4 +22,5 @@ notifications:
   webhooks:
 #    - https://$JIRA_USER:$JIRA_PASS@89.31.102.182/rest/api/latest/$JIRA_ISSUE
   - https://zapier.com/hooks/catch/3qvzb9/
+  on_failure: never
   - https://zapier.com/hooks/catch/3lozyv/
