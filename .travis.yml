@@ -1,7 +1,9 @@
 language: go
-sudo: required
-services:
-  - docker
+sudo: false
+addons:
+  apt:
+    packages:
+    - docker-io
 install:
   - go get github.com/gin-gonic/gin
 before_script:
