@@ -18,7 +18,7 @@ after_script:
   -  if [ "$JIRA_ISSUE" ];
       then curl -s -D- 
                 -u $JIRA_USER:$JIRA_PASS 
-                -X POST 
+                -X PUT 
                 -H 'Content-Type:application/json' 
                 -d "{\"body\":\"{\"update\":{\"fields\":{\"labels\":[\"1.0.$TRAVIS_BUILD_NUMBER\"]}}" 
                 https://savaltd.atlassian.net/rest/api/2/issue/$JIRA_ISSUE/editmeta
