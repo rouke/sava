@@ -20,5 +20,5 @@ ater_success:
   - for maj_min_version in $maj_min_versions;
     do 
       sed -i "s/${maj_min_version}.*/${maj_min_version}\.$TRAVIS_BUILD_NUMBER/g" *${maj_min_version}.yaml;
-      curl -D- -u VAMP_USER:VAMP_PASS --data @*${maj_min_version}.yaml -X POST -H "Content-Type: Application/x-yaml" http://www.sava-vamp.tk/api/v1/blueprints;
+      curl -D- -u VAMP_USER:VAMP_PASS --data @*${maj_min_version}.yaml -X POST -H "Content-Type:Application/x-yaml" http://www.sava-vamp.tk/api/v1/blueprints;
     done
